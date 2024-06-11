@@ -1,22 +1,25 @@
 #include <stdint.h>
 #include <stdlib.h>
+#include <time.h>
 
-#define HIGHER_BOUND 255
-#define LOWER_BOUND 0
+#define LOWER_BOUND ' '
+#define HIGHER_BOUND '~'
 
-static uint8_t
+static char
 generate_random_byte(void)
 {
 	return (rand() % (HIGHER_BOUND - LOWER_BOUND + 1) + LOWER_BOUND);
 }
 
-uint8_t*
+char*
 generate_key(size_t size)
 {
-	uint8_t*	key = malloc(size);
+	char*	key = malloc(size + 1);
 	if (!key)
 		return (NULL);
+	srand(time(0));
 	for (size_t ndx = 0; ndx < size; ndx++)
 		key[ndx] = generate_random_byte();
+	key[size] = '\0';
 	return (key);
 }
