@@ -1,29 +1,37 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
+#include "woody.h"
 
-void	quit_program(const char* msg, uint8_t exit_status)
+#include <stdio.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
+
+void
+quit_program(woody_t* woody, const char* msg, uint8_t exit_status)
 {
 	if (exit_status == EXIT_FAILURE)
 		fprintf(stderr, "Error%s\n", msg ? msg : strerror(errno));
+	if (woody->in_fd > 0)
+		close(woody->in_fd);
 	exit(exit_status);
 }
 
-woody_woodpack(int in_fd)
+void
+woody_woodpack(woody_t* woody)
 {
-	
+	read_file_header(woody);
+	read_program_header(woody);
+	quit_program(woody, NULL, EXIT_SUCCESS);
 }
 
-int	main(int ac, char* const* av)
+int
+main(int ac, char* const* av)
 {
+	woody_t	woody = { -1, 0, 0, 0, 0, 0, 0, 0 };
 	if (ac != 2)
-		quit_program(": give executable name", EXIT_FAILURE);
-	int	in_fd = open(av[1], O_RDONLY);
-	if (in_fd == -1)
-		quit_program(NULL, EXIT_FAILURE);
+		quit_program(&woody, ": give executable name", EXIT_FAILURE);
+	woody.in_fd = open(av[1], O_RDONLY);
+	if (woody.in_fd == -1)
+		quit_program(&woody, NULL, EXIT_FAILURE);
 	
-	woody_woodpack(in_fd);
+	woody_woodpack(&woody);
 }
