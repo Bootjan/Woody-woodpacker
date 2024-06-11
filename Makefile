@@ -17,9 +17,11 @@ NAME = woody_woodpacker
 
 SRC_DIR = srcs
 PARSE_BIN_DIR = parse_binary
+ENCRYPT_DIR = encryption
 
 SRC :=	$(wildcard $(SRC_DIR)/*.c) \
-		$(wildcard $(SRC_DIR)/$(PARSE_BIN_DIR)/*.c)
+		$(wildcard $(SRC_DIR)/$(PARSE_BIN_DIR)/*.c) \
+		$(wildcard $(SRC_DIR)/$(ENCRYPT_DIR)/*.c) 
 
 OBJS_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJS_DIR)/%.o)

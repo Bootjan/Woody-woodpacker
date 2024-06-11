@@ -1,6 +1,7 @@
 **/objs
-woody-woodpacker
+**/woody_woodpacker
 test.c
 a.out
 sample
 woody
+log*
