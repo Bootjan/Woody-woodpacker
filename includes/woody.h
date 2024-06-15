@@ -7,6 +7,7 @@
 
 typedef struct {
 	int			in_fd;
+	uint64_t	e_entry;
 	uint64_t	e_phoff;
 	uint16_t	e_phnum;
 	uint16_t	e_phentsize;

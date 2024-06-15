@@ -27,6 +27,7 @@ check_file_header(woody_t* woody, const char* buff, int r)
 void
 obtain_values(woody_t* woody, const char* buff)
 {
+	memcpy(&(woody->e_entry), &(buff[0x18]), 8);
 	memcpy(&(woody->e_phoff), &(buff[0x20]), 8);
 	memcpy(&(woody->e_phentsize), &(buff[0x36]), 2);
 	memcpy(&(woody->e_phnum), &(buff[0x38]), 2);
