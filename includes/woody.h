@@ -7,6 +7,8 @@
 
 typedef struct {
 	int			in_fd;
+	ssize_t		file_size;
+	void*		file_map;
 	uint64_t	e_entry;
 	uint64_t	e_phoff;
 	uint16_t	e_phnum;
@@ -17,8 +19,21 @@ typedef struct {
 	uint16_t	e_shstrndx;
 }	woody_t;
 
+
+
+typedef struct {
+	void*	data;
+	ssize_t	file_size;
+	int		file_fd;
+}	file_map_t;
+
+
 void	quit_program(woody_t* woody, const char* msg, uint8_t exit_status);
 void	read_program_header(woody_t* woody);
 void	read_file_header(woody_t* woody);
+
+
+int8_t	load_file_map(file_map_t* file_map, const char* file_name);
+void	delete_file_map(file_map_t* file_map);
 
 #endif
