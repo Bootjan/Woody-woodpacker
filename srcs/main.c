@@ -26,7 +26,7 @@ woody_woodpack(woody_t* woody)
 int
 main(int ac, char* const* av)
 {
-	woody_t	woody = { -1, 0, 0, 0, 0, 0, 0, 0 };
+	woody_t	woody = { -1, 0, 0, 0, 0, 0, 0, 0, 0 };
 	if (ac != 2)
 		quit_program(&woody, ": give executable name", EXIT_FAILURE);
 	woody.in_fd = open(av[1], O_RDONLY);
